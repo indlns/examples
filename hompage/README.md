@@ -1,1 +1,0 @@
-# Example configs of Hompage

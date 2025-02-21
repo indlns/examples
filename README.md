@@ -1,1 +1,1 @@
-# examples
+# Examples of configs

@@ -1,0 +1,54 @@
+- name: Setup Rsyslog for Remote Logging
+  hosts: all
+  become: true
+  vars:
+    log_server_ip: "{{ logServer }}"
+
+  tasks:
+    - name: Check if rsyslog is installed
+      ansible.builtin.command: rpm -q rsyslog
+      register: rsyslog_check
+      failed_when: rsyslog_check.rc > 1
+      changed_when: false
+      ignore_errors: true
+
+    - name: Install rsyslog if not installed
+      ansible.builtin.package:
+        name: rsyslog
+        state: present
+      when: rsyslog_check.rc != 0
+
+    - name: Uncomment UDP 514 port lines in /etc/rsyslog.conf
+      ansible.builtin.lineinfile:
+        path: /etc/rsyslog.conf
+        regexp: '^#(module\(load="imudp"\))'
+        line: '\1'
+        backrefs: true
+      notify: Restart rsyslog
+
+    - name: Uncomment UDP 514 input line in /etc/rsyslog.conf
+      ansible.builtin.lineinfile:
+        path: /etc/rsyslog.conf
+        regexp: '^#(input\(type="imudp" port="514"\))'
+        line: '\1'
+        backrefs: true
+      notify: Restart rsyslog
+
+    - name: Ensure remote logging to Graylog server
+      ansible.builtin.blockinfile:
+        path: /etc/rsyslog.d/30-graylog.conf
+        create: true
+        mode: '0644'
+        block: |
+          *.* @{{ log_server_ip }}:514
+      notify: Restart rsyslog
+
+  handlers:
+    - name: Restart rsyslog
+      ansible.builtin.service:
+        name: rsyslog
+        state: restarted
+
+    - name: Reboot host
+      ansible.builtin.reboot:
+        reboot_timeout: 600

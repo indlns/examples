@@ -52,7 +52,7 @@ THREAD_ID - айди топика в чатике
 Данные переменные необходимо добавить в Secrets раздел и присвоить им соответствующие значения.
 Сам URL необходимо вставить в поле Method/URL (Метод POST)
 
-![image](https://github.com/user-attachments/assets/421cfef4-6079-4f41-ae7d-7d74cfcd3f59)
+<img width="695" alt="image" src="https://github.com/user-attachments/assets/7371d035-cb48-4e75-b689-72213534925e" />
 
 ### 4. Скрипт резервного копирования директорий с хоста Proxmox в Proxmox Backup Server
 

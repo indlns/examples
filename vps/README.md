@@ -20,9 +20,14 @@ nano /etc/ssh/sshd_config
 systemctl daemon-reload
 system restart ssh
 ```
-## 3. 
+## 3. Установка панельки 3X-UI
+Устанавливаем панельку https://github.com/MHSanaei/3x-ui
 
-## 4.
+```
+bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
+```
+
+## 4. 
 
 ## 5.
 

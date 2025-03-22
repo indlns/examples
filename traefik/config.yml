@@ -1,0 +1,88 @@
+################################################################
+# Dynamic configuration
+################################################################
+
+udp:
+  routers:
+    example_udp_router:
+      entryPoints: example_udp_entry_point
+      service: example_udp_service
+      
+  services:
+    example_udp_service:
+      loadBalancer:
+        servers:
+          - address: "X.X.X.X:XXXXX" # Your IP:Port of udp service
+
+http:
+  routers:
+    traefik:
+      rule: "Host(`traefik.domain.com`)" # Your DOMAIN
+      entryPoints:
+        - http
+      middlewares:
+        - https-redirect
+      service: api@internal
+
+    traefik-secure:
+      rule: "Host(`traefik.domain.com`)" # Your DOMAIN
+      entryPoints:
+        - https
+      tls:
+        certResolver: mycertResolver 
+        domains:
+          - main: "domain.com" # Your DOMAIN
+            sans:
+              - "*.domain.com" # Your DOMAIN
+      middlewares:
+        - authentik
+      service: api@internal
+
+    example:
+      entryPoints:
+        - https
+      rule: "Host(`example.domain.com`)"        # Your DOMAIN
+      middlewares:
+        - default-headers
+        - https-redirect
+      tls:
+        certResolver: mycertResolver 
+      service: example
+
+  services:
+    example:
+      loadBalancer:
+        servers:
+          - url: "http://X.X.X.X:XXXXX"            # Your IP:Port of service 
+        passHostHeader: true
+        
+  middlewares:
+    default-headers:
+      headers:
+        frameDeny: true
+        browserXssFilter: true
+        contentTypeNosniff: true
+        forceSTSHeader: true
+        stsIncludeSubdomains: true
+        stsPreload: true
+        stsSeconds: 15552000
+        customFrameOptionsValue: SAMEORIGIN
+        customRequestHeaders:
+          X-Forwarded-Proto: https
+
+    default-whitelist:
+      ipAllowList:
+        sourceRange:
+        - "X.X.X.X"
+        - "X.X.X.X"
+
+    secured:
+      chain:
+        middlewares:
+        - default-whitelist
+        - default-headers
+
+    noRobots:
+      headers:
+        customResponseHeaders:
+          X-Robots-Tag: "none"

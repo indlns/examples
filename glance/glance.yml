@@ -1,5 +1,5 @@
 pages:
-  !include: /path/to/your/page/example_page.yml
+  !include: /path/to/your/page/startpage.yml
 
 theme:
   light: true

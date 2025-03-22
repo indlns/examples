@@ -1,3 +1,7 @@
+################################################################
+# Static configuration
+################################################################
+
 global:
   checkNewVersion: true
   sendAnonymousUsage: false

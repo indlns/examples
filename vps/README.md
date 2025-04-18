@@ -58,14 +58,61 @@ nano /etc/ssh/sshd_config
 systemctl daemon-reload
 system restart ssh
 ```
+### Включение и добавление правил в Firewall
+Для включения фаервола используется команда:
+```bash
+ufw enable
+```
+Важно! Для того чтобы не потерять доступ по SSH рекомендую через && добавить правило и на порт, который использует SSH:
+```bash
+ufw enable && ufw allow 1121/tcp
+```
+Необходимо потвердить выбор командой y на вопрос Command may disrupt existing ssh connections. Proccesed with operations (y|n)?
+
+Посмотреть статус firewall и пронумерованный список всех правил можно командой:
+```bash
+ufw status numbered
+```
+Также не забываем, что при включении фаервола все последующие порты необходимо будет открыть, например, порт 80 нужен для получения и обновления SSL сертификатов.
+
+### Установка запрета на пинг сервера
+Для того чтобы запретить пинговать сервер необходимо в файле before.rules добавить одну строчку в блок ok icmp codes for INPUT и отредактировать 2 блока ok icmp codes for INPUT и ok icmp codes for FORWARD:
+```bash
+nano /etc/ufw/before.rules
+```
+Добавляем строчку в блок ok icmp codes for INPUT и меняем с ACCEPT на DROP:
+```bash
+# ok icmp codes for INPUT
+ -A ufw-before-input -p icmp --icmp-type destination-unreachable -j DROP 
+-A ufw-before-input -p icmp --icmp-type source-quench -j DROP
+ -A ufw-before-input -p icmp --icmp-type time-exceeded -j DROP
+ -A ufw-before-input -p icmp --icmp-type parameter-problem -j DROP
+ -A ufw-before-input -p icmp --icmp-type echo-request -j DROP
+-A ufw-before-input -p icmp --icmp-type source-quench -j DROP - новая строчка в данном блоке
+```
+Аналогично меняем с ACCEPT на DROP у второго блока ok icmp codes for FORWARD:
+```bash
+# ok icmp codes for FORWARD
+-A ufw-before-forward -p icmp --icmp-type destination-unreachable -j DROP
+-A ufw-before-forward -p icmp --icmp-type time-exceeded -j DROP
+-A ufw-before-forward -p icmp --icmp-type parameter-problem -j DROP
+-A ufw-before-forward -p icmp --icmp-type echo-request -j DROP
+```
+- Сохраняем файл CTRL+C ENTER CTRL+X
+
+P.S данный способ не будет работать если vps провайдер использует внутреннюю логику мониторнига сервера. Например, такая логика есть у Aeza.
 ## Установка 3X-UI
 ### Установка 
+В данном разделе предполагается, что уже есть доменное имя
 
 https://github.com/MHSanaei/3x-ui
 
 ```bash
 bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
 ```
+Во время установки будет предложено установить порт для панели. Если не задать, то порт будет сгенерирован рандомно. Установщик также сгенерирует логин и пароль для доступа к веб-интерфейсу (Эти данные можно будет поменять через панель).
+
+P.S Не забываем открыть порт в firwall для доступа к панели.
 ### Настройка
 
 ## Установка WireGuard с веб-интерфейсом wg-easy

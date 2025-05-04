@@ -1,0 +1,30 @@
+################################################################
+# Middlewares
+# https://plugins.traefik.io/plugins/6335346ca4caa9ddeffda116/crowdsec-bouncer-traefik-plugin
+# Dynamic configuration
+################################################################
+
+http:
+  middlewares:
+    crowdsec:
+      plugin:
+        bouncer:
+          enabled: true
+          logLevel: INFO
+          updateIntervalSeconds: 15
+          updateMaxFailure: 0
+          defaultDecisionSeconds: 15
+          httpTimeoutSeconds: 10
+          crowdsecMode: stream
+          crowdsecAppsecEnabled: true
+          crowdsecAppsecHost: X.X.X.X:7422
+          crowdsecAppsecFailureBlock: true
+          crowdsecAppsecUnreachableBlock: true
+          crowdsecLapiKey: YOUR_LAPI_KEY
+          crowdsecLapiHost: X.X.X.X:8090
+          crowdsecLapiScheme: http
+          forwardedHeadersTrustedIPs:
+          - X.X.X.X
+          clientTrustedIPs:
+          - X.X.X.X
+          banHTMLFilePath: /etc/traefik/html/ban.html

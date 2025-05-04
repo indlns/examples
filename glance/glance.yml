@@ -1,0 +1,11 @@
+pages:
+  !include: /path/to/your/page/startpage.yml
+
+theme:
+  light: true
+  background-color: 0 0 95
+  primary-color: 0 0 10
+  negative-color: 0 90 50
+
+server:
+  assets-path: /path/to/your/assets

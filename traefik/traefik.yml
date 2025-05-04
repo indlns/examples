@@ -1,0 +1,118 @@
+################################################################
+# Static configuration
+################################################################
+
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: false
+
+providers:
+  file:
+    directory: /path/to/your/dynamic/config/directory/
+    watch: true
+
+entryPoints:
+  traefik:
+    address: ":8080"
+    forwardedHeaders:
+        trustedIPs:
+          - X.X.X.X/24
+          - X.X.X.X
+
+  example_udp_entry_point:
+    address: ":51127/udp"
+
+  example_tcp_entry_point:
+    address: ":6860/tcp"
+
+  http:
+    address: ":80"
+    http:
+      middlewares:                                                                   
+        - crowdsec@file
+      redirections:
+        entryPoint:
+          to: https
+          scheme: https
+    forwardedHeaders:
+        trustedIPs:
+          - X.X.X.X/24
+          - X.X.X.X
+
+  https:
+    address: ":443"
+    http:
+      tls:
+        certResolver: example
+        domains:
+          - main: "yourdomain.com"
+            sans:
+              - "*.yourdomain.com"
+      middlewares:                                                                   
+        - crowdsec@file
+        - noRobots@file
+    forwardedHeaders:
+        trustedIPs:
+          - X.X.X.X/24
+          - X.X.X.X
+
+certificatesResolvers:
+  timewebcloud:
+    acme:
+      email: example@gmail.com # your email
+      storage: /path/to/your/acme/file/acme.json
+      httpChallenge:
+        entryPoint: https
+      tlsChallenge: {}
+      dnsChallenge:
+        provider: example # your provider
+        resolvers:
+          - "ns.example.com" # your NS resolvers
+
+serversTransport:
+  insecureSkipVerify: true
+
+api:
+  dashboard: true
+  insecure: true
+
+log:
+  filePath: /path/to/your/traefik/log/traefik.log
+  format: json
+  level: INFO
+  compress: true # gzip compression when rotating
+  noColor: false # Recommended to be true when using common
+  maxSize: 100 # In megabytes
+
+accessLog:
+  filePath: /path/to/your/access/log/traefik-access.log
+  format: json
+  filters:
+    statusCodes:
+      - "200"
+      - "400-599"
+    retryAttempts: true
+    minDuration: "10ms"
+  bufferingSize: 0
+  fields:
+    headers:
+      defaultMode: drop
+      names:
+        User-Agent: keep
+
+metrics:
+  influxDB2:
+    address: http://X.X.X.X:8086 # your url to influxdb
+    token: influxdb_token # your influxdb token
+    org:  influxdb_org # your influxdb org
+    bucket: influxdb_spicy # your influxdb bucket
+
+experimental:
+  plugins:
+    bouncer:
+      moduleName: "github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin"
+      version: "v1.4.1"
+
+    traefik-ratelimit:
+      moduleName: "github.com/ghnexpress/traefik-ratelimit"
+      version: "v0.0.20"

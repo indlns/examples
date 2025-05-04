@@ -1,0 +1,72 @@
+################################################################
+# Dynamic configuration
+################################################################
+
+########################### TCP ################################
+# EXAMPLE TCP ROUTER
+tcp:
+  routers:
+    example_tcp_router:
+      entryPoints: 
+        - example_tcp_entry_point
+      rule: "HostSNI(`*`)"
+      middlewares:
+        - default-whitelist
+      service: example_tcp_service
+      
+# EXAMPLE TCP SERVICE
+  services:
+    example_tcp_service:
+      loadBalancer:
+        servers:
+          - address: "X.X.X.X:6111"
+########################### UDP ################################
+
+# EXAMPLE UDP ROUTER
+udp:
+  routers:
+    example_udp_router:
+      entryPoints: example_udp_entry_point
+      service: example_udp_service
+
+# EXAMPLE UDP SERVICE     
+  services:
+    example_udp_service:
+      loadBalancer:
+        servers:
+          - address: "X.X.X.X:72378"
+
+########################### HTTP ##############################
+
+# EXAMPLE HTTP ROUTER
+http:
+  routers:
+    traefik-secure:
+      rule: "Host(`traefik.domain.com`)"
+      entryPoints:
+        - https
+      tls: {}
+      middlewares:
+        - default-headers
+        - https-redirect
+        - authentik
+      service: api@internal
+
+    example:
+      entryPoints:
+        - https
+      rule: "Host(`example.yourdomain.com`)"
+      tls: {}
+      middlewares:
+        - default-headers
+        - https-redirect
+        - authentik
+      service: example
+
+# EXAMPLE HTTP SERVICE
+  services:
+    example:
+      loadBalancer:
+        servers:
+          - url: "http://X.X.1.X:2281"
+        passHostHeader: true

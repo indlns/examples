@@ -1,0 +1,22 @@
+################################################################
+# Middlewares
+# https://doc.traefik.io/traefik/middlewares/http/replacepathregex/
+# Dynamic configuration
+################################################################
+
+http:
+  middlewares:
+    addprefix:
+      addPrefix:
+        prefix: "/admin"
+        https-redirect:
+
+    https-redirectscheme:
+      redirectScheme:
+        scheme: https
+        permanent: true
+
+    redirectregex:
+      redirectRegex:
+        regex: "/(.*)"
+        replacement: /

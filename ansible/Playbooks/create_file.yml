@@ -1,0 +1,9 @@
+- name: Create file
+  hosts: all
+  become: yes
+  tasks:
+    - name: Create file with context
+      copy: 
+        dest: /root/root
+        content: |
+         Hi there

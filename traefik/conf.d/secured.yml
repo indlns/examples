@@ -1,0 +1,12 @@
+################################################################
+# Middlewares
+# Dynamic configuration
+################################################################
+
+http:
+  middlewares:
+    secured:
+      chain:
+        middlewares:
+        - default-whitelist
+        - default-headers

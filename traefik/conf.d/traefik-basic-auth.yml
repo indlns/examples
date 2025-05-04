@@ -1,0 +1,12 @@
+################################################################
+# Middlewares
+# https://doc.traefik.io/traefik/middlewares/http/basicauth/
+# Dynamic configuration
+################################################################
+
+http:
+  middlewares:
+    traefik-auth:
+      basicAuth:
+        users:
+          - "username:passwordhash"

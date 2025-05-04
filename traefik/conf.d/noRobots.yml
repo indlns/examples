@@ -1,0 +1,11 @@
+################################################################
+# Middlewares
+# Dynamic configuration
+################################################################
+
+http:
+  middlewares:
+    noRobots:
+      headers:
+        customResponseHeaders:
+          X-Robots-Tag: "none"

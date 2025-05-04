@@ -1,0 +1,18 @@
+################################################################
+# Middlewares 
+# https://doc.traefik.io/traefik/middlewares/http/ipallowlist/
+# Dynamic configuration
+################################################################
+
+http:
+  middlewares:
+    default-whitelist:
+      ipAllowList:
+        sourceRange:
+        - "X.X.X.X"
+tcp:
+  middlewares:
+    default-whitelist:
+      ipAllowList:
+        sourceRange:
+        - "X.X.X.X"

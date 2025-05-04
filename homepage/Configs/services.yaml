@@ -1,0 +1,296 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services/
+
+- Роутер:
+    - Router 1:
+        icon: openwrt.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+        widget:
+           type: openwrt
+           url: https://X.X.X.X
+           username: username
+           password: password
+           # interfaceName: eth0 # optional
+    - Router 2:
+        icon: openwrt.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+        widget:
+           type: openwrt
+           url: https://X.X.X.X
+           username: username
+           password: password
+           # interfaceName: eth0 # optional
+
+- Гипервизор:
+    - Proxmox:
+        icon: proxmox.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+        widget:
+           type: proxmox
+           url: https://X.X.X.X
+           username: username
+           password: password
+           node: node
+
+- Сетевое хранилище:
+    - Synology:
+        icon: synology-dsm.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+        widget:
+            type: diskstation
+            url: https://X.X.X.X
+            username: username
+            password: password
+            volume: volume_1 # optional
+
+    - Proxmox Backup Server:
+        icon: proxmox.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+        widget:
+           type: proxmoxbackupserver
+           url: https://X.X.X.X
+           username: username
+           password: password
+
+- Блокировщик рекламы / DNS:
+    - Adguard Home:
+        icon: adguard-home.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+        widget:
+            type: adguard
+            url: https://X.X.X.X
+            username: username
+            password: password
+
+- Умный дом:
+    - Spruthub:
+        icon: spruthub.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+
+    - Homebridge:
+        icon: homebridge.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+        widget:
+            type: homebridge
+            url: https://X.X.X.X
+            username: username
+            password: password
+
+    - Home Assistant:
+        icon: home-assistant.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+        widget:
+            type: homeassistant
+            url: https://X.X.X.X
+            key: key
+
+    - Node-Red:
+        icon: node-red.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+
+- Медиа:
+    - Immich:
+        icon: immich.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+        widget:
+            type: immich
+            url: https://X.X.X.X
+            key: key
+            version: 2 # optional, default is 1
+
+    - Plex:
+        icon: plex.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+        widget:
+            type: plex
+            url: https://X.X.X.X
+            key: key # see https://www.plexopedia.com/plex-media-server/general/plex-token/
+
+- Мониторинг:
+    - Grafana:
+        icon: grafana.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+        widget:
+            type: grafana
+            url: https://X.X.X.X
+            username: username
+            password: password
+    
+    - Pi-Alert:
+        icon: pi-alert.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+
+    - UptimeKuma:
+        icon: uptime-kuma.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+        widget:
+            type: uptimekuma
+            url: https://X.X.X.X
+            slug: slug
+
+    - Proxmox Datacenter Manager:
+        icon: proxmox.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+
+
+- Авторизация:
+    - Authentik:
+        icon: authentik.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+        widget:
+            type: authentik
+            url: https://X.X.X.X
+            key: key
+
+- Докер:
+    - Portainer:
+        icon: portainer.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+        widget:
+            type: portainer
+            url: https://X.X.X.X
+            env: 1
+            key: key
+
+    - Crowdsec:
+        icon: crowdsec.png
+        description: description
+        ping: https://X.X.X.X
+        widget:
+            type: crowdsec
+            url: https://X.X.X.X
+            username: username # machine_id in crowdsec
+            password: password
+
+    - Traefik:
+        icon: traefik.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+        widget:
+            type: traefik
+            url: https://X.X.X.X
+            username: username
+            password: password
+
+- Автоматизация:
+    - Semaphore:
+        icon: semaphore.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+
+
+- База данных:
+    - InfluxDB:
+        icon: influxdb.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+
+- Торрент:
+    - qBittorrent:
+        icon: qbittorrent.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+        widget:
+            type: qbittorrent
+            url: https://X.X.X.X
+            username: username
+            password: password
+            enableLeechProgress: true # optional, defaults to false
+        
+    - Torrserve:
+        icon: torrserver.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+
+- Telegram боты:
+    - Telegram Bot 1:
+        icon: telegram.png
+        description: description
+        ping: https://X.X.X.X
+
+    - Telegram Bot 2:
+        icon: telegram.png
+        description: description
+        ping: https://X.X.X.X
+
+- Логи:
+    - Graylog:
+        icon: graylog.png
+        href: https://X.X.X.X
+        description: description
+        ping: https://X.X.X.X
+
+- VPN:
+    - Wireguard:
+        icon: wireguard.png
+        href: https://X.X.X.X
+        description: description
+        widget:
+            type: wgeasy
+            url: https://X.X.X.X
+            password: password
+            threshold: 2 # optional
+
+- Виртуальные машины:
+    - VM 1:
+        icon: windows-10.png
+        description: description
+        ping: https://X.X.X.X
+
+    - VM 2:
+        icon: windows-11.png
+        description: description
+        ping: https://X.X.X.X
+
+- Остальное:
+    - Календарь:
+        description: description
+        widget:
+            type: calendar
+            #firstDayInWeek: sunday # optional - defaults to monday
+            view: monthly # optional - possible values monthly, agenda
+            maxEvents: 10 # optional - defaults to 10
+            showTime: true # optional - show time for event happening today - defaults to false
+            timezone: Europe/Moscow # optional and only when timezone is not detected properly (slightly slower performance) - force timezone for ical events (if it's the same - no change, if missing or different in ical - will be converted to this timezone)

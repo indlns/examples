@@ -1,0 +1,20 @@
+################################################################
+# Middlewares
+# https://doc.traefik.io/traefik/middlewares/http/forwardauth/
+# Dynamic configuration
+################################################################
+
+http:
+  middlewares:
+    default-headers:
+      headers:
+        frameDeny: true
+        browserXssFilter: true
+        contentTypeNosniff: true
+        forceSTSHeader: true
+        stsIncludeSubdomains: true
+        stsPreload: true
+        stsSeconds: 15552000
+        customFrameOptionsValue: SAMEORIGIN
+        customRequestHeaders:
+          X-Forwarded-Proto: https

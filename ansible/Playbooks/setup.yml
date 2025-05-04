@@ -1,0 +1,12 @@
+- name: Test Setup
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Gather system facts
+      ansible.builtin.setup:
+      register: system_var
+
+    - name: Debug system facts
+      ansible.builtin.debug:
+        var: system_var

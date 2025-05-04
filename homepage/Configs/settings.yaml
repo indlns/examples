@@ -1,0 +1,29 @@
+providers:
+  openweathermap: openweathermapapikey
+  weatherapi: weatherapiapikey
+
+title: title
+
+background:
+  image: https://p4.wallpaperbetter.com/wallpaper/990/454/320/mojave-macos-hd-wallpaper-preview.jpg 
+  blur: sm # sm, md, xl... see https://tailwindcss.com/docs/backdrop-blur
+  saturate: 100 # 0, 50, 100... see https://tailwindcss.com/docs/backdrop-saturate
+  brightness: 50 # 0, 50, 75... see https://tailwindcss.com/docs/backdrop-brightness
+  opacity: 100 # 0-100
+
+theme: dark # or light
+
+headerStyle: clean
+
+language: ru
+
+hideVersion: true
+
+statusStyle: "dot"
+
+quicklaunch:
+  searchDescriptions: true
+  hideInternetSearch: true
+  showSearchSuggestions: true
+  hideVisitURL: true
+  provider: google # google, duckduckgo, bing, baidu, brave or custom

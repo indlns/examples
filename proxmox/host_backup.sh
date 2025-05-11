@@ -2,6 +2,7 @@
 
 # Настройки
 PBS_REPO="XXX.XXX.X.XXX:storageName"    # Адрес PBS и название хранилища
+PBS_NAMESPACE="namespace-name"              # Пространство имён PBS
 PBS_PASSWORD="password"         # Пароль для доступа к PBS
 BACKUP_DIRS=("/path/to/dir1" "/path/to/dir2")    # Директории для резервного копирования
 BACKUP_NAME="system-backup-name"               # Имя бэкапа
@@ -16,10 +17,10 @@ for DIR in "${BACKUP_DIRS[@]}"; do
 
     if [[ "$DIR" == "/etc" ]]; then
         echo "Резервное копирование /etc с параметром --include-dev..."
-        proxmox-backup-client backup "${BASENAME}.pxar:$DIR" --repository "$PBS_REPO" --include-dev /etc/pve
+        proxmox-backup-client backup "${BASENAME}.pxar:$DIR" --repository "$PBS_REPO" --ns "$PBS_NAMESPACE" --include-dev /etc/pve
     else
         echo "Резервное копирование $DIR в $BACKUP_PATH..."
-        proxmox-backup-client backup "${BASENAME}.pxar:$DIR" --repository "$PBS_REPO"
+        proxmox-backup-client backup "${BASENAME}.pxar:$DIR" --repository "$PBS_REPO" --ns "$PBS_NAMESPACE"
     fi
 done
 
